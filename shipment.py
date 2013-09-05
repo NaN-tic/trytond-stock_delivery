@@ -11,7 +11,7 @@ __metaclass__ = PoolMeta
 class ShipmentOut:
     "Customer Shipment"
     __name__ = 'stock.shipment.out'
-    carrier_tracking_ref = fields.Char("Carrier Tracking Ref", size=256)
+    carrier_tracking_ref = fields.Char("Carrier Tracking Ref")
     number_packages = fields.Integer('Number of Packages')
 
     @staticmethod
