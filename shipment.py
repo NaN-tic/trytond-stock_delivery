@@ -24,3 +24,11 @@ class ShipmentOut:
     @staticmethod
     def default_number_packages():
         return 1
+
+    @classmethod
+    def copy(cls, shipments, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['carrier_tracking_ref'] = None
+        return super(ShipmentOut, cls).copy(shipments, default=default)
