@@ -4,8 +4,8 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
 msgid "Carrier Tracking Ref"
-msgstr "Referencia mensajero"
+msgstr "Referencia transportista"
 
 msgctxt "field:stock.shipment.out,number_packages:"
 msgid "Number of Packages"
-msgstr "Número de paquetes"
+msgstr "Número paquetes"
