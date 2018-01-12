@@ -6,11 +6,10 @@ from trytond.pool import PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['ShipmentOut']
-__metaclass__ = PoolMeta
 
 
 class ShipmentOut:
-    "Customer Shipment"
+    __metaclass__ = PoolMeta
     __name__ = 'stock.shipment.out'
     carrier_tracking_ref = fields.Char("Carrier Tracking Ref", states={
             'readonly': ~Eval('state').in_(['draft', 'waiting', 'assigned',
@@ -20,6 +19,15 @@ class ShipmentOut:
             'readonly': ~Eval('state').in_(['draft', 'waiting', 'assigned',
                     'packed']),
             }, depends=['state'])
+
+    @classmethod
+    def __setup__(cls):
+        super(ShipmentOut, cls).__setup__()
+        cls._error_messages.update({
+                'tracking_ref_cancel': (
+                    '"%(shipment)s" has a carrier tracking reference. '
+                    'Please, contact to the carrier and cancel the shipment'),
+                })
 
     @staticmethod
     def default_number_packages():
@@ -32,3 +40,14 @@ class ShipmentOut:
         default = default.copy()
         default['carrier_tracking_ref'] = None
         return super(ShipmentOut, cls).copy(shipments, default=default)
+
+    @classmethod
+    def cancel(cls, shipments):
+        for shipment in shipments:
+            if shipment.carrier_tracking_ref:
+                cls.raise_user_warning('tracking_ref_cancel%s'
+                        % shipment.id,
+                    'tracking_ref_cancel', {
+                        'shipment': shipment.rec_name,
+                        })
+        super(ShipmentOut, cls).cancel(shipments)
