@@ -18,6 +18,15 @@ class ShipmentOut:
         'readonly': Eval('state') == 'done',
         }, depends=['state'])
 
+    @classmethod
+    def __setup__(cls):
+        super(ShipmentOut, cls).__setup__()
+        cls._error_messages.update({
+                'tracking_ref_cancel': (
+                    '"%(shipment)s" has a carrier tracking reference. '
+                    'Please, contact to the carrier and cancel the shipment'),
+                })
+
     @staticmethod
     def default_number_packages():
         return 1
@@ -29,3 +38,14 @@ class ShipmentOut:
         default = default.copy()
         default['carrier_tracking_ref'] = None
         return super(ShipmentOut, cls).copy(shipments, default=default)
+
+    @classmethod
+    def cancel(cls, shipments):
+        for shipment in shipments:
+            if shipment.carrier_tracking_ref:
+                cls.raise_user_warning('tracking_ref_cancel%s'
+                        % shipment.id,
+                    'tracking_ref_cancel', {
+                        'shipment': shipment.rec_name,
+                        })
+        super(ShipmentOut, cls).cancel(shipments)
