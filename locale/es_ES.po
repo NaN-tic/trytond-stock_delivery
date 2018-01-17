@@ -1,6 +1,14 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:stock.shipment.out:"
+msgid ""
+"\"%(shipment)s\" has a carrier tracking reference. Please, contact to the "
+"carrier and cancel the shipment"
+msgstr ""
+"El albarán \"%(shipment)s\" tiene una referencia de transportista. Contacte "
+"con el transportista y cancele el envío."
 
 msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
 msgid "Carrier Tracking Ref"
