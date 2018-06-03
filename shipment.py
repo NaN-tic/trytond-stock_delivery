@@ -27,12 +27,11 @@ class ShipmentOut:
                     'Please, contact to the carrier and cancel the shipment'),
                 })
         # add carrier readonly when has a carrier tracking reference
-        if hasattr(cls, 'carrier'):
-            if cls.carrier.states.get('readonly'):
-                cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
-            else:
-                cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
-            cls.carrier.depends.append('carrier_tracking_ref')
+        if cls.carrier.states.get('readonly'):
+            cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
+        else:
+            cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
+        cls.carrier.depends.append('carrier_tracking_ref')
 
     @staticmethod
     def default_number_packages():
