@@ -3,6 +3,7 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/tree/field[@name=&quot;state&quot;]" position="before">
+        <field name="carrier"/>
         <field name="carrier_tracking_ref"/>
         <field name="number_packages"/>
     </xpath>
