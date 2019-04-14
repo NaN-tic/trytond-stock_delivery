@@ -4,6 +4,8 @@
 from trytond.model import fields
 from trytond.pool import PoolMeta
 from trytond.pyson import Eval
+from trytond.i18n import gettext
+from trytond.exceptions import UserWarning
 
 __all__ = ['ShipmentOut']
 
@@ -20,11 +22,7 @@ class ShipmentOut(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(ShipmentOut, cls).__setup__()
-        cls._error_messages.update({
-                'tracking_ref_cancel': (
-                    '"%(shipment)s" has a carrier tracking reference. '
-                    'Please, contact to the carrier and cancel the shipment'),
-                })
+
         # add carrier readonly when has a carrier tracking reference
         if cls.carrier.states.get('readonly'):
             cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
@@ -48,9 +46,7 @@ class ShipmentOut(metaclass=PoolMeta):
     def cancel(cls, shipments):
         for shipment in shipments:
             if shipment.carrier_tracking_ref:
-                cls.raise_user_warning('tracking_ref_cancel%s'
-                        % shipment.id,
-                    'tracking_ref_cancel', {
-                        'shipment': shipment.rec_name,
-                        })
+                raise UserWarning(gettext('stock_delivery.tracking_ref_cancel%s'
+                        % shipment.id, 'tracking_ref_cancel',
+                         shipment=shipment.rec_name ))
         super(ShipmentOut, cls).cancel(shipments)
