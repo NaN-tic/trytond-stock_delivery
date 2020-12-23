@@ -46,8 +46,8 @@ class ShipmentOut(metaclass=PoolMeta):
     def cancel(cls, shipments):
         Warning = Pool().get('res.user.warning')
         for shipment in shipments:
-            key='stock_delivery.tracking_ref_cancel%s' % shipment.id,
-            if shipment.carrier_tracking_ref and Warning.check():
-                raise UserWarning(key, gettext('tracking_ref_cancel',
-                         shipment=shipment.rec_name ))
+            key = 'stock_delivery.tracking_ref_cancel_%d' % shipment.id
+            if shipment.carrier_tracking_ref and Warning.check(key):
+                raise UserWarning(key, gettext('stock_delivery.msg_tracking_ref_cancel',
+                         shipment=shipment.rec_name))
         super(ShipmentOut, cls).cancel(shipments)
