@@ -28,7 +28,7 @@ class ShipmentOut(metaclass=PoolMeta):
                 cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
             else:
                 cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
-            cls.carrier.add.append('carrier_tracking_ref')
+            cls.carrier.depends.add('carrier_tracking_ref')
 
     @staticmethod
     def default_number_packages():
