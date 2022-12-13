@@ -8,4 +8,5 @@ from . import shipment
 def register():
     Pool.register(
         shipment.ShipmentOut,
+        shipment.ShipmentOutReturn,
         module='stock_delivery', type_='model')
