@@ -2,7 +2,7 @@
 <!-- This file is part stock_delivery module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/field[@name='warehouse']" position="after">
+    <xpath expr="/form/field[@name=&quot;warehouse&quot;]" position="after">
         <label name="carrier_tracking_ref"/>
         <field name="carrier_tracking_ref"/>
         <label name="number_packages"/>
