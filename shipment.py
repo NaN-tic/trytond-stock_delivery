@@ -14,10 +14,10 @@ class ShipmentOut(metaclass=PoolMeta):
     __name__ = 'stock.shipment.out'
     carrier_tracking_ref = fields.Char("Carrier Tracking Ref", states={
         'readonly': Eval('state') == 'done',
-        }, depends=['state'])
+        })
     number_packages = fields.Integer('Number of Packages', states={
         'readonly': Eval('state') == 'done',
-        }, depends=['state'])
+        })
 
     @classmethod
     def __setup__(cls):
