@@ -15,6 +15,8 @@ class ShipmentOut(metaclass=PoolMeta):
     carrier_tracking_ref = fields.Char("Carrier Tracking Ref", states={
         'readonly': Eval('state') == 'done',
         }, depends=['state'])
+    carrier_tracking_ref_uri = fields.Function(fields.Char(
+        "Carrier Tracking Ref URI"), 'on_change_with_carrier_tracking_ref_uri')
     number_packages = fields.Integer('Number of Packages', states={
         'readonly': Eval('state') == 'done',
         }, depends=['state'])
@@ -29,10 +31,21 @@ class ShipmentOut(metaclass=PoolMeta):
             else:
                 cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
             cls.carrier.depends.add('carrier_tracking_ref')
+            cls.on_change_with_carrier_tracking_ref_uri.depends.add('carrier')
 
     @staticmethod
     def default_number_packages():
         return 1
+
+    @fields.depends('carrier_tracking_ref')
+    def on_change_with_carrier_tracking_ref_uri(self, name=None):
+        if not hasattr(self, 'carrier'):
+            return
+
+        if (self.carrier and self.carrier.tracking_ref_uri
+                and self.carrier_tracking_ref):
+            return self.carrier.tracking_ref_uri.format(
+                reference=self.carrier_tracking_ref)
 
     @classmethod
     def copy(cls, shipments, default=None):
