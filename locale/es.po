@@ -2,6 +2,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:carrier,tracking_ref_uri:"
+msgid "URL Tracking Reference"
+msgstr "URL seguimiento transportista"
+
 msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
 msgid "Carrier Tracking Ref"
 msgstr "Referencia transportista"
@@ -25,3 +29,9 @@ msgid ""
 msgstr ""
 "El albarán \"%(shipment)s\" tiene una referencia de transportista. Contacte "
 "con el transportista y cancele el envío."
+
+msgctxt "help:carrier,tracking_ref_uri:"
+msgid ""
+"URI expression that will be evaluated. ex: https://domain.com?ref={reference}"
+msgstr ""
+"Expresión URI que será evaluada. ex: https://domain.com?ref={reference}"
