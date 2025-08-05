@@ -20,7 +20,7 @@ msgstr "Número paquetes"
 
 msgctxt "model:ir.message,text:msg_tracking_ref_cancel"
 msgid ""
-"\"%(shipment)s\" has a carrier tracking reference. Please, contact to the "
+"\"%(shipment)s\" has a carrier tracking reference. Please, contact the "
 "carrier and cancel the shipment."
 msgstr ""
 "El albarán \"%(shipment)s\" tiene una referencia de transportista. Contacte "
