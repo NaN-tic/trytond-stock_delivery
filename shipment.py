@@ -21,7 +21,7 @@ class ShipmentOut(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(ShipmentOut, cls).__setup__()
+        super().__setup__()
         if hasattr(cls, 'carrier'):
             # add carrier readonly when has a carrier tracking reference
             if cls.carrier.states.get('readonly'):
@@ -40,7 +40,7 @@ class ShipmentOut(metaclass=PoolMeta):
             default = {}
         default = default.copy()
         default['carrier_tracking_ref'] = None
-        return super(ShipmentOut, cls).copy(shipments, default=default)
+        return super().copy(shipments, default=default)
 
     @classmethod
     def cancel(cls, shipments):
@@ -50,4 +50,4 @@ class ShipmentOut(metaclass=PoolMeta):
             if shipment.carrier_tracking_ref and Warning.check(key):
                 raise UserWarning(key, gettext('stock_delivery.msg_tracking_ref_cancel',
                          shipment=shipment.rec_name))
-        super(ShipmentOut, cls).cancel(shipments)
+        super().cancel(shipments)
