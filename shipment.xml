@@ -3,6 +3,11 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <record model="ir.ui.view" id="carrier_view_form">
+            <field name="model">carrier</field>
+            <field name="inherit" ref="carrier.carrier_view_form"/>
+            <field name="name">carrier_form</field>
+        </record>
         <!-- stock.shipment.out -->
         <record model="ir.ui.view" id="shipment_out_view_tree">
             <field name="model">stock.shipment.out</field>
