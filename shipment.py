@@ -13,10 +13,6 @@ __all__ = ['ShipmentOut']
 class ShipmentOut(metaclass=PoolMeta):
     __name__ = 'stock.shipment.out'
 
-    carrier_request_date = fields.Date('Carrier Request Date', states={
-        'invisible': ~Bool(Eval('carrier')),
-        'readonly': Eval('state') == 'done',
-        })
     carrier_tracking_ref = fields.Char("Carrier Tracking Number", states={
         'readonly': Eval('state') == 'done',
         })
@@ -57,7 +53,6 @@ class ShipmentOut(metaclass=PoolMeta):
             default = {}
         default = default.copy()
         default['carrier_tracking_ref'] = None
-        default['carrier_request_date'] = None
         return super().copy(shipments, default=default)
 
     @classmethod

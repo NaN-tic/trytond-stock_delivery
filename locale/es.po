@@ -6,10 +6,6 @@ msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
 msgid "Carrier Tracking Number"
 msgstr "Número de seguimiento"
 
-msgctxt "field:stock.shipment.out,carrier_request_date:"
-msgid "Carrier Request Date"
-msgstr "Fecha de solicitud al transportista"
-
 msgctxt "field:stock.shipment.out,carrier_tracking_url:"
 msgid "Carrier Tracking URL"
 msgstr "Enlace de seguimiento"
