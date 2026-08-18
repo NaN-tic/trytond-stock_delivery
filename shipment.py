@@ -3,7 +3,7 @@
 # copyright notices and license terms.
 from trytond.model import fields
 from trytond.pool import PoolMeta, Pool
-from trytond.pyson import Eval
+from trytond.pyson import Bool, Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning
 
@@ -12,9 +12,15 @@ __all__ = ['ShipmentOut']
 
 class ShipmentOut(metaclass=PoolMeta):
     __name__ = 'stock.shipment.out'
-    carrier_tracking_ref = fields.Char("Carrier Tracking Ref", states={
+
+    carrier_tracking_ref = fields.Char("Carrier Tracking Number", states={
         'readonly': Eval('state') == 'done',
         })
+    carrier_tracking_url = fields.Function(fields.Char(
+        'Carrier Tracking URL', readonly=True,
+        states={
+            'invisible': ~Bool(Eval('carrier')),
+            }), 'on_change_with_carrier_tracking_url')
     number_packages = fields.Integer('Number of Packages', states={
         'readonly': Eval('state') == 'done',
         })
@@ -23,7 +29,6 @@ class ShipmentOut(metaclass=PoolMeta):
     def __setup__(cls):
         super().__setup__()
         if hasattr(cls, 'carrier'):
-            # add carrier readonly when has a carrier tracking reference
             if cls.carrier.states.get('readonly'):
                 cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
             else:
@@ -33,6 +38,24 @@ class ShipmentOut(metaclass=PoolMeta):
     @staticmethod
     def default_number_packages():
         return 1
+
+    @fields.depends(
+        'carrier', 'carrier_tracking_ref', 'company', 'warehouse',
+        'delivery_address',
+        '_parent_delivery_address.postal_code')
+    def on_change_with_carrier_tracking_url(self, name=None):
+        if not (self.carrier and self.carrier_tracking_ref):
+            return
+        api = next((a for a in self.carrier.apis
+                if a.company == self.company and a.warehouse == self.warehouse),
+            None)
+        if not api:
+            api = next((a for a in self.carrier.apis
+                    if a.company == self.company and not a.warehouse), None)
+        if not api:
+            return
+        url = api.render_url_tracking_ref(self)
+        return url.decode() if isinstance(url, bytes) else url
 
     @classmethod
     def copy(cls, shipments, default=None):

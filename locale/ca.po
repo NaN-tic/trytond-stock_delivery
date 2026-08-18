@@ -3,16 +3,20 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
-msgid "Carrier Tracking Ref"
-msgstr "Referència transportista"
+msgid "Carrier Tracking Number"
+msgstr "Número de seguiment"
+
+msgctxt "field:stock.shipment.out,carrier_tracking_url:"
+msgid "Carrier Tracking URL"
+msgstr "Enllaç de seguiment"
 
 msgctxt "field:stock.shipment.out,number_packages:"
 msgid "Number of Packages"
 msgstr "Número paquets"
 
 msgctxt "field:stock.shipment.out.return,carrier_tracking_ref:"
-msgid "Carrier Tracking Ref"
-msgstr "Referència transportista"
+msgid "Carrier Tracking Number"
+msgstr "Número de seguiment"
 
 msgctxt "field:stock.shipment.out.return,number_packages:"
 msgid "Number of Packages"
