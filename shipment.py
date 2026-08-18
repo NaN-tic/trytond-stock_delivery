@@ -1,38 +1,18 @@
 # This file is part stock_delivery module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from urllib.parse import quote
-
 from trytond.model import fields
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Bool, Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning
 
-__all__ = ['Carrier', 'ShipmentOut']
-
-
-class Carrier(metaclass=PoolMeta):
-    __name__ = 'carrier'
-
-    tracking_url_template = fields.Char(
-        'Tracking URL Template',
-        help='Tracking URL containing {reference} and optionally {zip}, '
-        'which are replaced by the shipment tracking number and delivery '
-        'address postal code.')
+__all__ = ['ShipmentOut']
 
 
 class ShipmentOut(metaclass=PoolMeta):
     __name__ = 'stock.shipment.out'
 
-    carrier = fields.Many2One('carrier', "Carrier", ondelete='RESTRICT',
-        states={
-            'readonly': Eval('state') == 'done',
-            },
-        context={
-            'company': Eval('company', -1),
-            },
-        depends=['company'])
     carrier_request_date = fields.Date('Carrier Request Date', states={
         'invisible': ~Bool(Eval('carrier')),
         'readonly': Eval('state') == 'done',
@@ -54,22 +34,22 @@ class ShipmentOut(metaclass=PoolMeta):
         return 1
 
     @fields.depends(
-        'carrier', 'carrier_tracking_ref', 'delivery_address',
+        'carrier', 'carrier_tracking_ref', 'company', 'warehouse',
+        'delivery_address',
         '_parent_delivery_address.postal_code')
     def on_change_with_carrier_tracking_url(self, name=None):
         if not (self.carrier and self.carrier_tracking_ref):
             return
-        template = self.carrier.tracking_url_template
-        if not template or '{reference}' not in template:
+        api = next((a for a in self.carrier.apis
+                if a.company == self.company and a.warehouse == self.warehouse),
+            None)
+        if not api:
+            api = next((a for a in self.carrier.apis
+                    if a.company == self.company and not a.warehouse), None)
+        if not api:
             return
-        if '{zip}' in template:
-            address = self.delivery_address
-            postal_code = address.postal_code if address else None
-            if not postal_code:
-                return
-            template = template.replace('{zip}', quote(postal_code, safe=''))
-        return template.replace(
-            '{reference}', quote(self.carrier_tracking_ref, safe=''))
+        url = api.render_url_tracking_ref(self)
+        return url.decode() if isinstance(url, bytes) else url
 
     @classmethod
     def copy(cls, shipments, default=None):
