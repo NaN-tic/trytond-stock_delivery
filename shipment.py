@@ -13,16 +13,6 @@ __all__ = ['ShipmentOut']
 class ShipmentOut(metaclass=PoolMeta):
     __name__ = 'stock.shipment.out'
 
-    @classmethod
-    def __setup__(cls):
-        super().__setup__()
-        if hasattr(cls, 'carrier'):
-            if cls.carrier.states.get('readonly'):
-                cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
-            else:
-                cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
-            cls.carrier.depends.add('carrier_tracking_ref')
-
     carrier_tracking_ref = fields.Char("Carrier Tracking Number", states={
         'readonly': Eval('state') == 'done',
         })
@@ -34,6 +24,16 @@ class ShipmentOut(metaclass=PoolMeta):
     number_packages = fields.Integer('Number of Packages', states={
         'readonly': Eval('state') == 'done',
         })
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        if hasattr(cls, 'carrier'):
+            if cls.carrier.states.get('readonly'):
+                cls.carrier.states['readonly'] |= Eval('carrier_tracking_ref')
+            else:
+                cls.carrier.states['readonly'] = Eval('carrier_tracking_ref')
+            cls.carrier.depends.add('carrier_tracking_ref')
 
     @staticmethod
     def default_number_packages():
