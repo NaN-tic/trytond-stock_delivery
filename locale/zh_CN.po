@@ -1,0 +1,31 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "承运商跟踪参考号"
+
+msgctxt "field:stock.shipment.out,number_packages:"
+msgid "Number of Packages"
+msgstr "包裹数量"
+
+msgctxt "field:stock.shipment.out.return,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "承运商跟踪参考号"
+
+msgctxt "field:stock.shipment.out.return,number_packages:"
+msgid "Number of Packages"
+msgstr "包裹数量"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_tracking_ref_cancel"
+msgid ""
+"\"%(shipment)s\" has a carrier tracking reference. Please, contact the "
+"carrier and cancel the shipment."
+msgstr "“%(shipment)s”已有承运商跟踪参考号。请联系承运商取消发运。"
