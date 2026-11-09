@@ -1,0 +1,33 @@
+#
+msgid ""
+msgstr ""
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "Fuvarozói nyomkövetési azonosító"
+
+msgctxt "field:stock.shipment.out,number_packages:"
+msgid "Number of Packages"
+msgstr "Csomagok száma"
+
+msgctxt "field:stock.shipment.out.return,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "Fuvarozói nyomkövetési azonosító"
+
+msgctxt "field:stock.shipment.out.return,number_packages:"
+msgid "Number of Packages"
+msgstr "Csomagok száma"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_tracking_ref_cancel"
+msgid ""
+"\"%(shipment)s\" has a carrier tracking reference. Please, contact the "
+"carrier and cancel the shipment."
+msgstr ""
+"A(z) „%(shipment)s” szállítmánynak van fuvarozói nyomkövetési azonosítója. "
+"Lépjen kapcsolatba a fuvarozóval, és mondja le a szállítmányt."
