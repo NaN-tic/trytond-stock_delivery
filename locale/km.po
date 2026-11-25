@@ -1,0 +1,33 @@
+#
+msgid ""
+msgstr ""
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:stock.shipment.out,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "លេខយោងតាមដានរបស់ក្រុមហ៊ុនដឹកជញ្ជូន"
+
+msgctxt "field:stock.shipment.out,number_packages:"
+msgid "Number of Packages"
+msgstr "ចំនួនកញ្ចប់"
+
+msgctxt "field:stock.shipment.out.return,carrier_tracking_ref:"
+msgid "Carrier Tracking Ref"
+msgstr "លេខយោងតាមដានរបស់ក្រុមហ៊ុនដឹកជញ្ជូន"
+
+msgctxt "field:stock.shipment.out.return,number_packages:"
+msgid "Number of Packages"
+msgstr "ចំនួនកញ្ចប់"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_tracking_ref_cancel"
+msgid ""
+"\"%(shipment)s\" has a carrier tracking reference. Please, contact the "
+"carrier and cancel the shipment."
+msgstr ""
+"«%(shipment)s» មានលេខយោងតាមដានរបស់ក្រុមហ៊ុនដឹកជញ្ជូន។ "
+"សូមទាក់ទងក្រុមហ៊ុនដឹកជញ្ជូន ហើយបោះបង់ការដឹកជញ្ជូននេះ។"
